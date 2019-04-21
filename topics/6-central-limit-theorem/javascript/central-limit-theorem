@@ -1,0 +1,46 @@
+#! /usr/bin/env node
+
+const sampleSize = process.argv[2]
+const histogramOutputs = process.argv[3]
+const type = process.argv[4] 
+
+function randomNumber() {
+	switch (type) {
+		case 'uniform': 
+			return Math.random()
+		case 'ascii':
+			return getRandomFromAscii(process.argv[5])
+		default:
+			return 2
+	}
+}
+
+function uniformDistribution(end) {
+	return Math.floor(Math.random() * end)
+}
+
+function getRandomFromAscii(str) {
+	const location = uniformDistribution(str.length)
+	return str.charCodeAt(location) - 'a'.charCodeAt(0) + 1
+}
+
+function runDistribution() {
+	const numberOfTimes = sampleSize
+	let sum = 0;
+	for(var x = 0; x < numberOfTimes; x++) {
+		sum += randomNumber()
+	}
+	return sum / numberOfTimes
+}
+
+function runHistogram() {
+	const numberOfTimes = histogramOutputs
+	let output = []
+	for(var x = 0; x < numberOfTimes; x++) {
+		output.push(runDistribution())
+	}
+	//const stringedOutput = output.map(n => n.toFixed(3))
+	return output.join('\n')
+}
+
+console.log(runHistogram())
