@@ -20,9 +20,16 @@ projections = [np.outer(principal_component, eigenvector)
         in zip(principal_components.iteritems(), eigenvectors.T)]
 
 def main():
-    plt.scatter(normalized_data['duration'], normalized_data['delay'])
+    plt.style.use('seaborn')
+    plt.title('Principal component analysis of Old Faithful')
+
+    plt.xlabel([*normalized_data][0] + ' (normalized)')
+    plt.ylabel([*normalized_data][1] + ' (normalized)')
+    plt.axis('equal')
+
+    plt.scatter(normalized_data['duration'], normalized_data['delay'], alpha=0.4)
     for projection in projections:
-        plt.scatter(projection[:, 0], projection[:, 1])
+        plt.scatter(projection[:, 0], projection[:, 1], alpha=0.4)
 
     plt.show()
 
