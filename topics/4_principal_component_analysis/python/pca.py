@@ -15,15 +15,14 @@ eigenvectors = eigenvectors[descending_indices]
 
 principal_components = normalized_data @ eigenvectors
 
-projection_0 = principal_components[0].values.reshape(-1, 1) \
-               @ eigenvectors[:, 0].reshape(1, -1)
-projection_1 = principal_components[1].values.reshape(-1, 1) \
-               @ eigenvectors[:, 1].reshape(1, -1)
+projections = [np.outer(principal_component, eigenvector)
+        for ((_, principal_component), eigenvector)
+        in zip(principal_components.iteritems(), eigenvectors.T)]
 
 def main():
     plt.scatter(normalized_data['duration'], normalized_data['delay'])
-    plt.scatter(projection_0[:, 0], projection_0[:, 1])
-    plt.scatter(projection_1[:, 0], projection_1[:, 1])
+    for projection in projections:
+        plt.scatter(projection[:, 0], projection[:, 1])
 
     plt.show()
 
