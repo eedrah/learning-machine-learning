@@ -8,7 +8,7 @@ end
 
 [~, temp] = max(YhatTrain, [], 2);
 temp(temp==10) = 0;
-[t temp];
+[(1:Ntrain)' t temp (temp==t)]
 
 sum(temp==t)/Ntrain
 
@@ -42,6 +42,6 @@ end
 [~, YhatClass] = max(YhatTest, [], 2);
 YhatClass(YhatClass==10) = 0;
 
-[(1:Ntest)' classTest YhatClass]
+[(1:Ntest)' classTest YhatClass (YhatClass==classTest)]
 
 sum(YhatClass==classTest)/Ntest

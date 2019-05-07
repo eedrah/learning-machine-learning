@@ -7,12 +7,9 @@ function nn = trainmlp(X, t, hiddenUnits, varargin)
 %% Parse inputs
 
 [X, t, hiddenUnits, learningRate, gradientTol, actFunction, ...
-    scaleData, includeBiases] = parsemlp(X, t, hiddenUnits, varargin{:});
+    includeBiases] = parsemlp(X, t, hiddenUnits, varargin{:});
 
 %% Train multilayer perceptron
-
-if scaleData == true; X = scale(X); end
-t(t==0) = 10; t = dummyvar(t);
 
 N = size(X, 1);
 D = size(X, 2);
